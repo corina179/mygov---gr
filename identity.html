@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102d55">
+<title>MyGov GR — Προσωπικό προφίλ</title>
+
+<style>
+:root {
+  --navy:#102d55;
+  --blue:#1769aa;
+  --light:#eaf2fa;
+  --ink:#172b43;
+  --muted:#64758a;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  padding:22px 14px 40px;
+  background:#edf2f7;
+  color:var(--ink);
+  font-family:Arial, sans-serif;
+}
+header {
+  max-width:850px;
+  margin:0 auto 22px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo {
+  width:46px;height:46px;
+  border-radius:13px;
+  background:var(--navy);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-weight:bold;
+  font-size:17px;
+}
+header h1 { margin:0;font-size:21px;color:var(--navy); }
+header p { margin:4px 0 0;color:var(--muted);font-size:13px; }
+
+main { max-width:850px;margin:auto; }
+.notice {
+  background:#fff4d9;
+  border:1px solid #e6c875;
+  border-radius:12px;
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+.section-title {
+  font-size:16px;
+  color:var(--navy);
+  margin:22px 0 10px;
+}
+.card {
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff,#f1f6fc);
+  border:1px solid #cbd8e7;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 8px 25px #17395c18;
+  margin-bottom:18px;
+}
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid #d7e1ec;
+  padding-bottom:14px;
+}
+.brand {
+  color:var(--navy);
+  font-weight:800;
+  letter-spacing:.5px;
+  font-size:17px;
+}
+.demo {
+  color:#9a4c00;
+  border:1px solid #d99a45;
+  background:#fff3df;
+  border-radius:6px;
+  padding:5px 8px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+.card-content {
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:20px;
+  padding-top:19px;
+}
+.photo {
+  width:120px;
+  height:150px;
+  border:2px solid #d4dfeb;
+  border-radius:12px;
+  background:#e5edf6;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  color:#71839a;
+  text-align:center;
+  font-size:12px;
+}
+.photo img { width:100%;height:100%;object-fit:cover; }
+.fields {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px 18px;
+  align-content:start;
+}
+.field small {
+  display:block;
+  color:#718096;
+  font-size:10px;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.field strong {
+  display:block;
+  font-size:14px;
+  overflow-wrap:anywhere;
+  min-height:17px;
+}
+.card-bottom {
+  border-top:1px solid #d7e1ec;
+  margin-top:18px;
+  padding-top:12px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:#60748b;
+  font-size:11px;
+}
+.back-grid {
+  display:grid;
+  grid-template-columns:1fr 130px;
+  gap:18px;
+  align-items:center;
+  padding-top:20px;
+}
+.back-details {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+.qr {
+  width:120px;height:120px;
+  border:8px solid white;
+  outline:1px solid #cbd8e7;
+  background:
+    repeating-conic-gradient(#263b55 0 25%,#fff 0 50%)
+    0 0 / 12px 12px;
+  display:grid;
+  place-items:center;
+}
+.qr span {
+  background:white;
+  padding:5px;
+  font-size:10px;
+  font-weight:bold;
+}
+.form-card {
+  background:white;
+  border:1px solid #d8e2ed;
+  border-radius:16px;
+  padding:18px;
+  margin-top:20px;
+}
+.form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+label {
+  display:block;
+  font-size:12px;
+  color:#53677e;
+  font-weight:700;
+  margin-bottom:6px;
+}
+input,select {
+  width:100%;
+  padding:11px;
+  border:1px solid #cbd7e4;
+  border-radius:9px;
+  background:white;
+  color:var(--ink);
+  font-size:14px;
+}
+input:focus,select:focus {
+  outline:2px solid #8bbce7;
+  border-color:var(--blue);
+}
+.full { grid-column:1/-1; }
+.photo-input { margin-top:8px; }
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:17px;
+}
+button {
+  border:0;
+  border-radius:9px;
+  padding:12px 16px;
+  font-weight:700;
+  cursor:pointer;
+  background:var(--navy);
+  color:white;
+}
+button.secondary { background:#e7eef6;color:var(--navy); }
+button.danger { background:#fbe9e9;color:#9b2828; }
+footer {
+  text-align:center;
+  color:#718096;
+  font-size:11px;
+  margin-top:25px;
+  line-height:1.6;
+}
+@media(max-width:560px) {
+  .card {padding:16px;}
+  .card-content {grid-template-columns:92px 1fr;gap:12px;}
+  .photo {width:92px;height:122px;}
+  .fields {gap:12px 9px;}
+  .field strong {font-size:12px;}
+  .form-grid {grid-template-columns:1fr;}
+  .full {grid-column:auto;}
+  .back-grid {grid-template-columns:1fr;}
+  .qr {margin:auto;}
+}
+@media print {
+  body {background:white;padding:0;}
+  header,.notice,.form-card,.actions,footer {display:none!important;}
+  .card {box-shadow:none;break-inside:avoid;margin:10px 0;}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">MG</div>
+  <div>
+    <h1>MyGov GR</h1>
+    <p>Προσωπικό ψηφιακό προφίλ</p>
+  </div>
+</header>
+
+<main>
+  <div class="notice">
+    <strong>Δοκιμαστική εφαρμογή:</strong>
+    Η παρακάτω κάρτα είναι προσωπικό demo του MyGov GR.
+    Δεν αποτελεί κρατικό έγγραφο, επίσημη ταυτότητα ή μέσο ταυτοποίησης.
+  </div>
+
+  <h2 class="section-title">Προσωπική κάρτα — εμπρόσθια όψη</h2>
+  <section class="card">
+    <div class="card-top">
+      <div class="brand">MYGOV GR<br><small>ΠΡΟΣΩΠΙΚΟ ΠΡΟΦΙΛ</small></div>
+      <span class="demo">ΜΗ ΕΠΙΣΗΜΟ DEMO</span>
+    </div>
+
+    <div class="card-content">
+      <div class="photo" id="photoBox">ΠΡΟΣΩΠΙΚΗ<br>ΦΩΤΟΓΡΑΦΙΑ</div>
+      <div class="fields">
+        <div class="field">
+          <small>Επώνυμο</small>
+          <strong id="outLast">—</strong>
+        </div>
+        <div class="field">
+          <small>Όνομα</small>
+          <strong id="outFirst">—</strong>
+        </div>
+        <div class="field">
+          <small>Ημερομηνία γέννησης</small>
+          <strong id="outBirth">—</strong>
+        </div>
+        <div class="field">
+          <small>Τόπος γέννησης</small>
+          <strong id="outPlace">—</strong>
+        </div>
+        <div class="field">
+          <small>Υπηκοότητα</small>
+          <strong id="outNation">—</strong>
+        </div>
+        <div class="field">
+          <small>Φύλο</small>
+          <strong id="outGender">—</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <span>MYGOV GR • DEMO PROFILE</span>
+      <span>ΜΗ ΕΠΙΣΗΜΟ</span>
+    </div>
+  </section>
+
+  <h2 class="section-title">Προσωπική κάρτα — πίσω όψη</h2>
+  <section class="card">
+    <div class="card-top">
+      <div class="brand">ΣΤΟΙΧΕΙΑ ΠΡΟΦΙΛ</div>
+      <span class="demo">DEMO ONLY</span>
+    </div>
+
+    <div class="back-grid">
+      <div class="back-details">
+        <div class="field">
+          <small>Κωδικός demo</small>
+          <strong id="outCode">MG-DEMO-0000</strong>
+        </div>
+        <div class="field">
+          <small>Ημερομηνία καταχώρισης</small>
+          <strong id="outIssue">—</strong>
+        </div>
+        <div class="field">
+          <small>Λήξη demo</small>
+          <strong id="outExpiry">—</strong>
+        </div>
+        <div class="field">
+          <small>Εφαρμογή</small>
+          <strong>MyGov GR</strong>
+        </div>
+      </div>
+      <div>
+        <div class="qr"><span>DEMO QR</span></div>
+        <small style="display:block;text-align:center;color:#718096;margin-top:8px">
+          Δεν γίνεται επαλήθευση
+        </small>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <span>ΠΡΟΣΩΠΙΚΟ DEMO ΠΡΟΦΙΛ</span>
+      <span>ΟΧΙ ΚΡΑΤΙΚΟ ΕΓΓΡΑΦΟ</span>
+    </div>
+  </section>
+
+  <section class="form-card">
+    <h2 class="section-title" style="margin-top:0">Επεξεργασία στοιχείων</h2>
+    <div class="form-grid">
+      <div>
+        <label for="last">Επώνυμο</label>
+        <input id="last" autocomplete="family-name" placeholder="Επώνυμο">
+      </div>
+      <div>
+        <label for="first">Όνομα</label>
+        <input id="first" autocomplete="given-name" placeholder="Όνομα">
+      </div>
+      <div>
+        <label for="birth">Ημερομηνία γέννησης</label>
+        <input id="birth" type="date">
+      </div>
+      <div>
+        <label for="place">Τόπος γέννησης</label>
+        <input id="place" placeholder="Πόλη">
+      </div>
+      <div>
+        <label for="nation">Υπηκοότητα</label>
+        <input id="nation" placeholder="π.χ. Ελληνική">
+      </div>
+      <div>
+        <label for="gender">Φύλο (προαιρετικό)</label>
+        <select id="gender">
+          <option value="">Δεν έχει οριστεί</option>
+          <option>Γυναίκα</option>
+          <option>Άνδρας</option>
+          <option>Άλλο</option>
+          <option>Δεν επιθυμώ να δηλώσω</option>
+        </select>
+      </div>
+      <div>
+        <label for="issue">Ημερομηνία καταχώρισης demo</label>
+        <input id="issue" type="date">
+      </div>
+      <div>
+        <label for="expiry">Λήξη demo</label>
+        <input id="expiry" type="date">
+      </div>
+      <div class="full">
+        <label for="photoInput">Φωτογραφία προφίλ</label>
+        <input class="photo-input" id="photoInput" type="file" accept="image/*">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="saveBtn">Αποθήκευση</button>
+      <button class="secondary" id="printBtn">Εκτύπωση</button>
+      <button class="danger" id="clearBtn">Καθαρισμός στοιχείων</button>
+    </div>
+    <p style="font-size:11px;color:#718096;line-height:1.5">
+      Τα στοιχεία αποθηκεύονται τοπικά σε αυτόν τον browser.
+      Μην χρησιμοποιείς πραγματικούς αριθμούς εγγράφων ή άλλα
+      ευαίσθητα στοιχεία.
+    </p>
+  </section>
+
+  <footer>
+    MyGov GR — ανεξάρτητο δοκιμαστικό project.<br>
+    Δεν συνδέεται με το gov.gr ή με ελληνική δημόσια υπηρεσία.
+  </footer>
+</main>
+
+<script>
+const ids = [
+  "last","first","birth","place","nation","gender","issue","expiry"
+];
+
+const $ = id => document.getElementById(id);
+
+function showData() {
+  $("outLast").textContent = $("last").value || "—";
+  $("outFirst").textContent = $("first").value || "—";
+  $("outBirth").textContent = $("birth").value || "—";
+  $("outPlace").textContent = $("place").value || "—";
+  $("outNation").textContent = $("nation").value || "—";
+  $("outGender").textContent = $("gender").value || "—";
+  $("outIssue").textContent = $("issue").value || "—";
+  $("outExpiry").textContent = $("expiry").value || "—";
+}
+
+function saveData() {
+  const data = {};
+  ids.forEach(id => data[id] = $(id).value);
+  try {
+    localStorage.setItem("mygov-gr-demo-profile", JSON.stringify(data));
+    showData();
+    alert("Τα στοιχεία αποθηκεύτηκαν σε αυτή τη συσκευή.");
+  } catch {
+    alert("Δεν ήταν δυνατή η αποθήκευση.");
+  }
+}
+
+function loadData() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem("mygov-gr-demo-profile") || "{}"
+    );
+    ids.forEach(id => {
+      if (saved[id] !== undefined) $(id).value = saved[id];
+    });
+
+    const photo = localStorage.getItem("mygov-gr-demo-photo");
+    if (photo) showPhoto(photo);
+  } catch {}
+  showData();
+}
+
+function showPhoto(src) {
+  $("photoBox").innerHTML = "";
+  const img = document.createElement("img");
+  img.alt = "Φωτογραφία προφίλ";
+  img.src = src;
+  $("photoBox").appendChild(img);
+}
+
+$("photoInput").addEventListener("change", event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    alert("Επίλεξε αρχείο εικόνας.");
+    return;
+  }
+  if (file.size > 3 * 1024 * 1024) {
+    alert("Η φωτογραφία πρέπει να είναι μικρότερη από 3 MB.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      localStorage.setItem("mygov-gr-demo-photo", reader.result);
+      showPhoto(reader.result);
+    } catch {
+      alert("Δεν ήταν δυνατή η αποθήκευση της φωτογραφίας.");
+    }
+  };
+  reader.readAsDataURL(file);
+});
+
+$("saveBtn").addEventListener("click", saveData);
+$("printBtn").addEventListener("click", () => window.print());
+
+$("clearBtn").addEventListener("click", () => {
+  if (!confirm("Να διαγραφούν τα αποθηκευμένα στοιχεία και η φωτογραφία;")) return;
+  localStorage.removeItem("mygov-gr-demo-profile");
+  localStorage.removeItem("mygov-gr-demo-photo");
+  ids.forEach(id => $(id).value = "");
+  $("photoInput").value = "";
+  $("photoBox").textContent = "ΠΡΟΣΩΠΙΚΗ ΦΩΤΟΓΡΑΦΙΑ";
+  showData();
+});
+
+ids.forEach(id => $(id).addEventListener("input", showData));
+loadData();
+</script>
+</body>
+</html>
